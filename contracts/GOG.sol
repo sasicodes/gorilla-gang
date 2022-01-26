@@ -13,7 +13,6 @@ contract GOG is ERC721Enumerable, Ownable {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
     using ToColor for bytes3;
-    event GorillaMinted(uint256 indexed tokenId);
 
     constructor() ERC721('Gorilla Gang', 'GOG') {}
 
@@ -48,7 +47,6 @@ contract GOG is ERC721Enumerable, Ownable {
             bytes2(predictableRandom[6]) |
             (bytes2(predictableRandom[7]) >> 8) |
             (bytes3(predictableRandom[7]) >> 16);
-        emit GorillaMinted(id);
         return id;
     }
 
