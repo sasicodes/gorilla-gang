@@ -3,8 +3,14 @@ module.exports = {
     './src/pages/**/*.{js,ts,jsx,tsx}',
     './src/components/**/*.{js,ts,jsx,tsx}'
   ],
+  darkMode: 'class',
   theme: {
-    extend: {}
+    extend: {
+      fontFamily: {
+        sans: 'IBM Plex Sans',
+        mono: 'IBM Plex Mono'
+      }
+    }
   },
   plugins: []
 }

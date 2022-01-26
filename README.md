@@ -2,7 +2,7 @@
 ![](https://cloudflare-ipfs.com/ipfs/QmX6BtuiAQmjLpbqzyBWxRieR4PxSquCzjuFd3vsr1fAGj)
 ###### image source([ethereum](https://ethereum.org/))
 
-# Full stack Ethereum starter
+# Gorilla Gang NFTs
 
 ## Stack
  - NextJs
@@ -22,7 +22,7 @@
 
 You can either clone the repository or use this template to kick-start your project.
 ```
-npx create-next-app -e https://github.com/sasicodes/next-eth
+npx create-next-app -e https://github.com/sasicodes/gorilla-gang
 ```
 
 Install all dependencies,
