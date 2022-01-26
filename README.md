@@ -10,7 +10,7 @@
  - Typescript
  - Hardhat
  - Ethers
- - Playwright Test Suite
+ - Chai
  - Github workflow and renovate bot
  - ESlint and Prettier
  - Path aliases
