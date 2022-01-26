@@ -31,17 +31,21 @@ const WalletSelector = () => {
               Connected with {connector?.name}
             </h6>
             <span className="inline-block px-2 py-1 text-xs rounded-lg bg-gray-800">
-              {networkData.chain?.name}
+              {networkData.chain?.name || 'unknown'}
             </span>
           </div>
-          <h6 className="cursor-pointer">{accountData?.address}</h6>
+          <h6 className="cursor-pointer truncate select-all">
+            {accountData?.address}
+          </h6>
         </div>
       )}
       {connectors.map((x, i) => {
         return (
           <button
             key={i}
-            className="hover:bg-gray-700 w-full flex items-center justify-center px-4 py-3 overflow-hidden  border-2 border-transparent outline-none rounded-lg border-gray-700"
+            className={`w-full flex items-center justify-center px-4 py-3 overflow-hidden  border-2 border-transparent outline-none rounded-lg border-gray-700
+            ${x.id !== accountData?.connector?.id && 'hover:bg-gray-700'}
+            `}
             onClick={() => onConnect(x)}
             disabled={
               mounted ? !x.ready || x.id === accountData?.connector?.id : false
@@ -51,6 +55,22 @@ const WalletSelector = () => {
               {mounted ? x.name : x.id === 'injected' ? x.id : x.name}
               {mounted ? !x.ready && ' (unsupported)' : ''}
               {loading && x.name === connector?.name && 'Loading...'}
+              {!loading && x.id === accountData?.connector?.id && (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+              )}
             </span>
           </button>
         )

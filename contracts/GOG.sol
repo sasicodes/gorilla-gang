@@ -13,6 +13,7 @@ contract GOG is ERC721, Ownable {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
     using ToColor for bytes3;
+    event GorillaMinted(uint256 indexed tokenId);
 
     constructor() ERC721('Gorilla Gang', 'GOG') {}
 
@@ -47,6 +48,7 @@ contract GOG is ERC721, Ownable {
             bytes2(predictableRandom[6]) |
             (bytes2(predictableRandom[7]) >> 8) |
             (bytes3(predictableRandom[7]) >> 16);
+        emit GorillaMinted(id);
         return id;
     }
 
@@ -69,9 +71,9 @@ contract GOG is ERC721, Ownable {
                                 name,
                                 '", "description":"',
                                 description,
-                                '", "attributes": [{"trait_type": "eyeColor", "value": "#',
+                                '", "attributes": [{"trait_type": "eye", "value": "#',
                                 eyeColor[id].toColor(),
-                                '"},{"trait_type": "backgroudColor", "value": "#',
+                                '"},{"trait_type": "backgroud", "value": "#',
                                 bgColor[id].toColor(),
                                 '"}], "owner":"',
                                 (uint160(ownerOf(id))).toHexString(20),

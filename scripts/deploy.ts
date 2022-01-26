@@ -1,15 +1,15 @@
-import { ethers } from "hardhat";
+import { ethers } from 'hardhat'
 
 async function main() {
-  const Blockies = await ethers.getContractFactory("Blockies");
-  const BlockiesTxn = await Blockies.deploy();
+  const GOG = await ethers.getContractFactory('GOG')
+  const GOGTxn = await GOG.deploy()
 
-  await BlockiesTxn.deployed();
+  await GOGTxn.deployed()
 
-  console.log("Blockies deployed to:", BlockiesTxn.address);
+  console.log('GOG deployed to:', GOGTxn.address)
 }
 
 main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+  console.error(error)
+  process.exitCode = 1
+})
