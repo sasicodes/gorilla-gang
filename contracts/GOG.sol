@@ -1,13 +1,13 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.9;
 
-import '@openzeppelin/contracts/token/ERC721/ERC721.sol';
+import 'base64-sol/base64.sol';
+import '@openzeppelin/contracts/utils/Strings.sol';
 import '@openzeppelin/contracts/utils/Counters.sol';
 import '@openzeppelin/contracts/access/Ownable.sol';
-import '@openzeppelin/contracts/utils/Strings.sol';
-import 'base64-sol/base64.sol';
+import '@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol';
 
-contract GOG is ERC721, Ownable {
+contract GOG is ERC721Enumerable, Ownable {
     using Strings for uint256;
     using HexStrings for uint160;
     using Counters for Counters.Counter;
@@ -104,8 +104,7 @@ contract GOG is ERC721, Ownable {
         return svg;
     }
 
-    // Visibility is `public` to enable it being called by other contracts for composition.
-    function renderTokenById(uint256 id) public view returns (string memory) {
+    function renderTokenById(uint256 id) internal view returns (string memory) {
         string memory render = string(
             abi.encodePacked(
                 '<rect width="500" height="500" fill="#',
