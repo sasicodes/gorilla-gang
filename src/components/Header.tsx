@@ -20,7 +20,7 @@ const Header = () => {
         <span className="text-xl">Gorilla Gang</span>
       </div>
       <div className="flex">
-        {accountData?.address && (
+        {accountData?.address ? (
           <button
             onClick={() => setShowWalletModal(true)}
             className="flex space-x-2 hover:bg-gray-700 items-center justify-center px-4 py-1.5 overflow-hidden  border-2 border-transparent outline-none rounded-lg border-gray-700"
@@ -35,6 +35,13 @@ const Header = () => {
                 alt=""
               />
             )}
+          </button>
+        ) : (
+          <button
+            onClick={() => setShowWalletModal(true)}
+            className="flex space-x-2 hover:bg-gray-700 items-center justify-center px-4 py-1.5 overflow-hidden  border-2 border-transparent outline-none rounded-lg border-gray-700"
+          >
+            Connect Wallet
           </button>
         )}
       </div>

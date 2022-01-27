@@ -5,6 +5,7 @@ import { useNetwork } from 'wagmi'
 
 export default function Home() {
   const [{ data: networkData }] = useNetwork()
+  console.log('🚀 ~ file: index.tsx ~ line 8 ~ Home ~ networkData', networkData)
 
   return (
     <div className="flex flex-col flex-1 min-h-screen">

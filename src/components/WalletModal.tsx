@@ -13,7 +13,7 @@ const WalletModal: React.FC<Props> = (props) => {
   return (
     <div
       className={clsx(
-        'top-0 bottom-0 z-20 left-0 right-0 min-h-screen bg-gray-800 bg-opacity-70 backdrop-filter backdrop-blur flex flex-row items-start justify-center',
+        'top-0 bottom-0 font-sans z-20 left-0 right-0 min-h-screen bg-gray-800 bg-opacity-70 backdrop-filter backdrop-blur flex flex-row items-start justify-center',
         {
           hidden: !props.show,
           absolute: props.show

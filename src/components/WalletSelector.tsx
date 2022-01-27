@@ -34,7 +34,7 @@ const WalletSelector = () => {
               {networkData.chain?.name || 'unknown'}
             </span>
           </div>
-          <h6 className="cursor-pointer truncate select-all">
+          <h6 className="cursor-pointer font-mono truncate select-all">
             {accountData?.address}
           </h6>
         </div>
@@ -54,7 +54,7 @@ const WalletSelector = () => {
             <span className="flex items-center justify-between w-full">
               {mounted ? x.name : x.id === 'injected' ? x.id : x.name}
               {mounted ? !x.ready && ' (unsupported)' : ''}
-              {loading && x.name === connector?.name && 'Loading...'}
+              {loading && x.name === connector?.name && <span>...</span>}
               {!loading && x.id === accountData?.connector?.id && (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

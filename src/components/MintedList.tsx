@@ -18,13 +18,13 @@ export type NftMetaData = {
 
 const MintedList = () => {
   const [mintedItems, setMintedItems] = useState<NftMetaData[]>([])
+  const [{ data: networkData }] = useNetwork()
   const [{ data: signerData }] = useSigner()
   const contract = useContract({
     addressOrName: contractAddress,
     contractInterface: ContractMetaData.abi,
     signerOrProvider: signerData
   })
-  const [{ data: networkData }] = useNetwork()
 
   const getMintedItems = useCallback(async () => {
     const totalSupply = await contract.totalSupply()

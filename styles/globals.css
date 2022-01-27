@@ -6,3 +6,9 @@
 body {
   @apply font-sans min-h-screen bg-gray-900 overflow-x-hidden text-gray-200;
 }
+.-walletlink-css-reset body {
+  @apply !bg-transparent;
+}
+.walletconnect-modal__mobile__toggle{
+  @apply text-gray-900;
+}
