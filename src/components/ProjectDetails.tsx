@@ -1,6 +1,6 @@
 import shortenAddress from '@utils/helpers/shortenAddress'
 import React from 'react'
-import { useContract, useSigner } from 'wagmi'
+import { useConnect, useContract, useSigner } from 'wagmi'
 
 import ContractMetaData from '../../artifacts/contracts/GOG.sol/GOG.json'
 
@@ -8,7 +8,11 @@ const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string
 
 const ProjectDetails = () => {
   const [{ data: signerData }] = useSigner()
-
+  const [
+    {
+      data: { connected }
+    }
+  ] = useConnect()
   const contract = useContract({
     addressOrName: contractAddress,
     contractInterface: ContractMetaData.abi,
@@ -21,7 +25,7 @@ const ProjectDetails = () => {
 
   return (
     <div className="flex flex-col overflow-x-hidden lg:w-1/4">
-      <div className="p-4 space-y-4 bg-gray-800 rounded-lg">
+      <div className="space-y-6 bg-gray-800 rounded-lg p-5">
         <div className="space-y-2">
           <div className="text-sm font-semibold text-gray-400 uppercase">
             About
@@ -46,12 +50,14 @@ const ProjectDetails = () => {
             {shortenAddress(contractAddress, 12)}
           </a>
         </div>
-        <button
-          onClick={() => onMint()}
-          className="hover:bg-gray-700 flex items-center justify-center w-full px-4 py-3 overflow-hidden border-2 border-transparent border-gray-700 rounded-lg focus:outline-none"
-        >
-          Mint
-        </button>
+        {connected && (
+          <button
+            onClick={() => onMint()}
+            className="hover:bg-gray-700 flex items-center justify-center w-full px-4 py-3 overflow-hidden border-2 border-transparent border-gray-700 rounded-lg focus:outline-none"
+          >
+            Mint
+          </button>
+        )}
       </div>
     </div>
   )

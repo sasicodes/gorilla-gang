@@ -3,7 +3,7 @@
 ###### image source([ethereum](https://ethereum.org/))
 
 # Gorilla Gang NFTs
-
+Gorilla Gang ($GOG) is a generative art collectables, randomly generated with different traits like color, eye and backgrouds. Each Gorilla is a unique, non-fungible token (NFT) on the Ethereum blockchain.
 ## Stack
  - NextJs
  - TailwindCSS

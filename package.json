@@ -1,6 +1,6 @@
 {
   "name": "gorilla-gang",
-  "description": "Gorilla Gang generative NFTs",
+  "description": "Gorilla Gang ($GOG) is a generative art collectables, randomly generated with different traits like color, eye and backgrouds. Each Gorilla is a unique, non-fungible token (NFT) on the Ethereum blockchain.",
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {

@@ -55,7 +55,7 @@ contract GOG is ERC721Enumerable, Ownable {
         string memory name = string(
             abi.encodePacked('Gorilla #', id.toString())
         );
-        string memory description = string(abi.encodePacked('Gorilla Gang'));
+        string memory description = string(abi.encodePacked('Gorilla Gang ($GOG) is a generative art collectables, randomly generated with different traits like color, eye and backgrouds. Each Gorilla is a unique, non-fungible token (NFT) on the Ethereum blockchain.'));
         string memory image = Base64.encode(bytes(generateSVGofTokenById(id)));
 
         return
