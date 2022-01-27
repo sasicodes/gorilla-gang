@@ -45,4 +45,7 @@ jobs:
         run: yarn typecheck
   
       - name: Build
+        env:
+          NEXT_PUBLIC_INFURA_ID: ${{ secrets.NEXT_PUBLIC_INFURA_ID }}
+          NEXT_PUBLIC_CONTRACT_ADDRESS: ${{ secrets.NEXT_PUBLIC_CONTRACT_ADDRESS }}
         run: yarn build
