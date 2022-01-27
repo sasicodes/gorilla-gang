@@ -1,8 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { useContract, useSigner } from 'wagmi'
+import { useContract, useNetwork, useSigner } from 'wagmi'
 
 import ContractMetaData from '../../artifacts/contracts/GOG.sol/GOG.json'
 import Card from './Card'
+import Unsupported from './Unsupported'
 
 const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string
 
@@ -23,6 +24,7 @@ const MintedList = () => {
     contractInterface: ContractMetaData.abi,
     signerOrProvider: signerData
   })
+  const [{ data: networkData }] = useNetwork()
 
   const getMintedItems = useCallback(async () => {
     const totalSupply = await contract.totalSupply()
@@ -42,8 +44,11 @@ const MintedList = () => {
   }, [contract])
 
   useEffect(() => {
-    if (contract.signer) getMintedItems()
+    if (contract.signer && !networkData.chain?.unsupported) getMintedItems()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [contract.signer, getMintedItems])
+
+  if (networkData.chain?.unsupported) return <Unsupported />
 
   return (
     <div className="grid gap-4 lg:w-3/4 md:grid-cols-3 xl:grid-cols-4">
