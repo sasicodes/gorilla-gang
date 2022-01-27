@@ -11,13 +11,13 @@ const Header = () => {
   })
 
   return (
-    <header className="sticky top-0 left-0 right-0 z-10 flex items-center justify-between px-5 py-4 bg-opacity-50 backdrop-filter backdrop-blur">
+    <header className="sticky top-0 font-mono left-0 right-0 z-10 flex items-center justify-between px-5 py-4 bg-opacity-50 backdrop-filter backdrop-blur">
       <WalletModal
         show={showWalletModal}
         onClose={() => setShowWalletModal(false)}
       />
       <div className="flex items-center space-x-2 text-xl ">
-        <span className="font-mono text-xl">Gorilla Gang</span>
+        <span className="text-xl">Gorilla Gang</span>
       </div>
       <div className="flex">
         {accountData?.address && (

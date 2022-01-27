@@ -20,7 +20,7 @@ const Card = ({ item }: { item: NftMetaData }) => {
           <h1 className="font-semibold tracking-wide">{item.name}</h1>
           <div className="inline-flex space-x-3 items-center justify-between">
             <a
-              className="font-mono text-xs hover:text-blue-400 truncate"
+              className="text-xs hover:text-blue-400"
               target="_blank"
               rel="noreferrer"
               href={`https://etherscan.io/address/${item.owner}`}
@@ -39,7 +39,7 @@ const Card = ({ item }: { item: NftMetaData }) => {
               </svg>
             </a>
             <a
-              className="font-mono text-xs hover:text-blue-400 truncate"
+              className="text-xs hover:text-blue-400"
               target="_blank"
               href={`https://opensea.io/assets/${contractAddress}/${item.tokenId}`}
               rel="noreferrer"

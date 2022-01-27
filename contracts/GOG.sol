@@ -73,6 +73,8 @@ contract GOG is ERC721Enumerable, Ownable {
                                 eyeColor[id].toColor(),
                                 '"},{"trait_type": "backgroud", "value": "#',
                                 bgColor[id].toColor(),
+                                '"},{"trait_type": "color", "value": "#',
+                                color[id].toColor(),
                                 '"}], "owner":"',
                                 (uint160(ownerOf(id))).toHexString(20),
                                 '", "image": "',
