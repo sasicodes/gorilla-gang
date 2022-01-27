@@ -22,15 +22,26 @@ const ProjectDetails = () => {
   return (
     <div className="flex flex-col overflow-x-hidden lg:w-1/4">
       <div className="p-4 space-y-4 bg-gray-800 rounded-lg">
-        <div className="text-xs font-semibold uppercase">Contract</div>
-        <a
-          className="font-mono text-sm truncate"
-          target="_blank"
-          rel="noreferrer"
-          href="https://etherscan.io/address/0xf310282af8F4cca4633A3e1eC99Fa1bC83c94A7c"
-        >
-          {shortenAddress('0xf310282af8F4cca4633A3e1eC99Fa1bC83c94A7c', 10)}
-        </a>
+        <div>
+          <div className="text-xs font-semibold uppercase mb-2">About</div>
+          <p className="text-sm">
+            Gorilla Gang ($GOG) is a generative art collectables, randomly
+            generated with different traits like color, eye and backgrouds. Each
+            Gorilla is a unique, non-fungible token (NFT) on the Ethereum
+            blockchain.
+          </p>
+        </div>
+        <div className="space-y-2">
+          <div className="text-xs font-semibold uppercase">Contract</div>
+          <a
+            className="font-mono hover:text-blue-400 text-sm truncate block"
+            target="_blank"
+            rel="noreferrer"
+            href="https://etherscan.io/address/0xf310282af8F4cca4633A3e1eC99Fa1bC83c94A7c"
+          >
+            {shortenAddress('0xf310282af8F4cca4633A3e1eC99Fa1bC83c94A7c', 10)}
+          </a>
+        </div>
         <button
           onClick={() => onMint()}
           className="flex items-center justify-center w-full px-4 py-3 overflow-hidden border-2 border-transparent border-gray-700 rounded-lg outline-none hover:bg-gray-700"

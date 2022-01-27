@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { useContract, useContractEvent, useSigner } from 'wagmi'
+import React, { useCallback, useEffect, useState } from 'react'
+import { useContract, useSigner } from 'wagmi'
 
 import ContractMetaData from '../../artifacts/contracts/GOG.sol/GOG.json'
 import Card from './Card'
@@ -23,16 +23,8 @@ const MintedList = () => {
     contractInterface: ContractMetaData.abi,
     signerOrProvider: signerData
   })
-  useContractEvent(
-    {
-      addressOrName: contractAddress,
-      contractInterface: ContractMetaData.abi
-    },
-    'GorillaMinted',
-    (event) => console.log('---', event)
-  )
 
-  const getMintedItems = async () => {
+  const getMintedItems = useCallback(async () => {
     const totalSupply = await contract.totalSupply()
     let mintedItems: NftMetaData[] = []
     for (
@@ -46,13 +38,12 @@ const MintedList = () => {
       jsonManifest.tokenId = tokenIndex
       mintedItems.push(jsonManifest)
     }
-    setMintedItems(mintedItems)
-  }
+    setMintedItems(mintedItems.reverse())
+  }, [contract])
 
   useEffect(() => {
-    getMintedItems()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    if (contract.signer) getMintedItems()
+  }, [contract.signer, getMintedItems])
 
   return (
     <div className="grid gap-4 lg:w-3/4 md:grid-cols-3 xl:grid-cols-4">
