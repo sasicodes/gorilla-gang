@@ -2,7 +2,7 @@ import shortenAddress from '@utils/helpers/shortenAddress'
 import React from 'react'
 import { useConnect, useContract, useNetwork, useSigner } from 'wagmi'
 
-import ContractMetaData from '../../artifacts/contracts/GOG.sol/GOG.json'
+import ContractMetaData from '../../abi/GOG.json'
 
 const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string
 
