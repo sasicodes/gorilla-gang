@@ -21,7 +21,10 @@ const Header = () => {
       <div className="flex items-center space-x-2 text-xl ">
         <span className="text-xl">Gorilla 🦍 Gang</span>
       </div>
-      <div className="flex">
+      <div className="flex items-center">
+        {network.chain?.unsupported && (
+          <span className="text-red-400 text-sm mr-3">Unsupported network</span>
+        )}
         <button
           onClick={() =>
             network.chain?.unsupported && switchNetwork
@@ -31,15 +34,17 @@ const Header = () => {
           className="flex space-x-2 hover:bg-gray-700 items-center justify-center px-4 py-1.5 overflow-hidden  border-2 border-transparent outline-none rounded-lg border-gray-700"
         >
           <div>
-            {accountData?.address ? (
+            {accountData?.address && !network.chain?.unsupported ? (
               <span>
                 {accountData?.ens?.name || shortenAddress(accountData?.address)}
               </span>
+            ) : network.chain?.unsupported && switchNetwork ? (
+              'Switch Network'
             ) : (
               'Connect Wallet'
             )}
           </div>
-          {accountData?.ens?.avatar && (
+          {accountData?.ens?.avatar && !network.chain?.unsupported && (
             <img
               className="w-6 h-6 rounded-full"
               src={accountData.ens.avatar}
