@@ -1,11 +1,13 @@
 import shortenAddress from '@utils/helpers/shortenAddress'
 import { useState } from 'react'
-import { useAccount } from 'wagmi'
+import { useAccount, useNetwork } from 'wagmi'
 
 import WalletModal from './WalletModal'
 
 const Header = () => {
   const [showWalletModal, setShowWalletModal] = useState(false)
+  const [{ data: network }, switchNetwork] = useNetwork()
+
   const [{ data: accountData }] = useAccount({
     fetchEns: true
   })
@@ -17,33 +19,34 @@ const Header = () => {
         onClose={() => setShowWalletModal(false)}
       />
       <div className="flex items-center space-x-2 text-xl ">
-        <span className="text-xl">Gorilla Gang</span>
+        <span className="text-xl">Gorilla 🦍 Gang</span>
       </div>
       <div className="flex">
-        {accountData?.address ? (
-          <button
-            onClick={() => setShowWalletModal(true)}
-            className="flex space-x-2 hover:bg-gray-700 items-center justify-center px-4 py-1.5 overflow-hidden  border-2 border-transparent outline-none rounded-lg border-gray-700"
-          >
-            <div>
-              {accountData?.ens?.name || shortenAddress(accountData?.address)}
-            </div>
-            {accountData?.ens?.avatar && (
-              <img
-                className="w-6 h-6 rounded-full"
-                src={accountData.ens.avatar}
-                alt=""
-              />
+        <button
+          onClick={() =>
+            network.chain?.unsupported && switchNetwork
+              ? switchNetwork(4)
+              : setShowWalletModal(true)
+          }
+          className="flex space-x-2 hover:bg-gray-700 items-center justify-center px-4 py-1.5 overflow-hidden  border-2 border-transparent outline-none rounded-lg border-gray-700"
+        >
+          <div>
+            {accountData?.address ? (
+              <span>
+                {accountData?.ens?.name || shortenAddress(accountData?.address)}
+              </span>
+            ) : (
+              'Connect Wallet'
             )}
-          </button>
-        ) : (
-          <button
-            onClick={() => setShowWalletModal(true)}
-            className="flex space-x-2 hover:bg-gray-700 items-center justify-center px-4 py-1.5 overflow-hidden  border-2 border-transparent outline-none rounded-lg border-gray-700"
-          >
-            Connect Wallet
-          </button>
-        )}
+          </div>
+          {accountData?.ens?.avatar && (
+            <img
+              className="w-6 h-6 rounded-full"
+              src={accountData.ens.avatar}
+              alt=""
+            />
+          )}
+        </button>
       </div>
     </header>
   )

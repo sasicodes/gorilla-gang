@@ -1,6 +1,6 @@
 import shortenAddress from '@utils/helpers/shortenAddress'
 import React from 'react'
-import { useConnect, useContract, useSigner } from 'wagmi'
+import { useConnect, useContract, useNetwork, useSigner } from 'wagmi'
 
 import ContractMetaData from '../../artifacts/contracts/GOG.sol/GOG.json'
 
@@ -8,6 +8,7 @@ const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string
 
 const ProjectDetails = () => {
   const [{ data: signerData }] = useSigner()
+  const [{ data: networkData }] = useNetwork()
   const [
     {
       data: { connected }
@@ -20,7 +21,8 @@ const ProjectDetails = () => {
   })
 
   const onMint = async () => {
-    await contract.mintItem()
+    const item = await contract.mintItem()
+    console.log('🚀 ~ file: ProjectDetails.tsx ~ line 24 ~ onMint ~ item', item)
   }
 
   return (
@@ -50,7 +52,7 @@ const ProjectDetails = () => {
             {shortenAddress(contractAddress, 12)}
           </a>
         </div>
-        {connected && (
+        {connected && !networkData.chain?.unsupported && (
           <button
             onClick={() => onMint()}
             className="hover:bg-gray-700 flex items-center justify-center w-full px-4 py-3 overflow-hidden border-2 border-transparent border-gray-700 rounded-lg focus:outline-none"

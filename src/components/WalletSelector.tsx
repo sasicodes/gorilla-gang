@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Connector, useAccount, useConnect, useNetwork } from 'wagmi'
 
+import { Spinner } from './Spinner'
+
 const WalletSelector = () => {
   const [mounted, setMounted] = useState(false)
   useEffect(() => setMounted(true), [])
@@ -54,7 +56,7 @@ const WalletSelector = () => {
             <span className="flex items-center justify-between w-full">
               {mounted ? x.name : x.id === 'injected' ? x.id : x.name}
               {mounted ? !x.ready && ' (unsupported)' : ''}
-              {loading && x.name === connector?.name && <span>...</span>}
+              {loading && x.name === connector?.name && <Spinner />}
               {!loading && x.id === accountData?.connector?.id && (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -77,6 +79,20 @@ const WalletSelector = () => {
       })}
       {error?.message ? (
         <div className="flex items-center py-2 text-red-500">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5 mr-2"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
           {error?.message ?? 'Failed to connect'}
         </div>
       ) : null}

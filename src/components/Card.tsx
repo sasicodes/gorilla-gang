@@ -1,16 +1,15 @@
+import { Asset } from '@utils/types'
 import React from 'react'
-
-import { NftMetaData } from './MintedList'
 
 const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string
 
-const Card = ({ item }: { item: NftMetaData }) => {
+const Card = ({ item }: { item: Asset }) => {
   return (
     <div className="bg-gray-800 divide-y divide-gray-700 rounded-lg">
       <div className="p-4">
         <img
           className="w-full rounded"
-          src={item.image}
+          src={item.image_url}
           alt=""
           draggable={false}
         />
@@ -24,7 +23,7 @@ const Card = ({ item }: { item: NftMetaData }) => {
               className="text-xs hover:text-blue-400"
               target="_blank"
               rel="noreferrer"
-              href={`https://etherscan.io/address/${item.owner}`}
+              href={`https://etherscan.io/address/${item.owner.address}`}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -43,7 +42,7 @@ const Card = ({ item }: { item: NftMetaData }) => {
               title="View on Opensea"
               className="text-xs hover:text-blue-400"
               target="_blank"
-              href={`https://opensea.io/assets/${contractAddress}/${item.tokenId}`}
+              href={`https://opensea.io/assets/${contractAddress}/${item.token_id}`}
               rel="noreferrer"
             >
               <svg
@@ -65,7 +64,7 @@ const Card = ({ item }: { item: NftMetaData }) => {
         </div>
         <div className="space-y-2">
           <div className="grid grid-cols-2 gap-3">
-            {item.attributes.map(({ trait_type, value }, idx) => (
+            {item.traits.map(({ trait_type, value }, idx) => (
               <div key={idx} className="p-2 px-3 bg-gray-900 rounded-lg">
                 <span className="block text-gray-400 text-xs font-semibold uppercase">
                   {trait_type}
