@@ -8,9 +8,10 @@ describe('GOG Contract', function () {
 
     console.log('GOG Contract - ', contract.address)
 
-    const mint = await contract.mintItem()
-    console.log('🚀 ~ file: gog-test.ts ~ line 12 ~ mint', mint)
+    await contract.mintItem()
+    await contract.mintItem()
+    await contract.mintItem()
     const token = await contract.tokenURI(1)
-    console.log('🚀 ~ file: gog-test.ts ~ line 13 ~ token', token)
+    console.log('🚀 ~ file: gog-test.ts ~ line 14 ~ token', token)
   })
 })

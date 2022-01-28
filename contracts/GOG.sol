@@ -19,11 +19,10 @@ contract GOG is ERC721Enumerable, Ownable {
     mapping(uint256 => bytes3) public bgColor;
     mapping(uint256 => bytes3) public eyeColor;
     mapping(uint256 => bytes3) public color;
-    uint256 public mintDeadline = block.timestamp + 48 hours;
     event GorillaMinted(uint256 id, string metadata);
 
     function mintItem() public returns (uint256) {
-        require(block.timestamp < mintDeadline, 'DONE MINTING');
+        require(_tokenIds.current() < 500, 'Minting completed.');
         _tokenIds.increment();
         uint256 id = _tokenIds.current();
         _mint(msg.sender, id);
@@ -53,7 +52,7 @@ contract GOG is ERC721Enumerable, Ownable {
     }
 
     function tokenURI(uint256 id) public view override returns (string memory) {
-        require(_exists(id), 'not exist');
+        require(_exists(id), 'Token not exists.');
         string memory name = string(
             abi.encodePacked('Gorilla #', id.toString())
         );
@@ -75,7 +74,7 @@ contract GOG is ERC721Enumerable, Ownable {
                                 name,
                                 '", "description":"',
                                 description,
-                                '", "attributes": [{"trait_type": "eye", "value": "#',
+                                '", "attributes": [{ "trait_type": "face", "value": "Happy"}, {"trait_type": "eye", "value": "#',
                                 eyeColor[id].toColor(),
                                 '"},{"trait_type": "backgroud", "value": "#',
                                 bgColor[id].toColor(),
