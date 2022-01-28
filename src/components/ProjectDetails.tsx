@@ -1,12 +1,20 @@
-import shortenAddress from '@utils/helpers/shortenAddress'
-import React from 'react'
-import { useConnect, useContract, useNetwork, useSigner } from 'wagmi'
+import useStore from '@utils/store'
+import React, { useState } from 'react'
+import {
+  useConnect,
+  useContract,
+  useContractEvent,
+  useNetwork,
+  useSigner
+} from 'wagmi'
 
 import ContractMetaData from '../../abi/GOG.json'
 
 const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string
 
 const ProjectDetails = () => {
+  const [minting, setMinting] = useState(false)
+  const { mintedItems, setMintedItems } = useStore((store) => store)
   const [{ data: signerData }] = useSigner()
   const [{ data: networkData }] = useNetwork()
   const [
@@ -20,9 +28,35 @@ const ProjectDetails = () => {
     signerOrProvider: signerData
   })
 
+  useContractEvent(
+    {
+      addressOrName: contractAddress,
+      contractInterface: ContractMetaData.abi
+    },
+    'GorillaMinted',
+    (event) => {
+      const jsonString = atob(event[1].substring(29))
+      setMinting(false)
+      const meta = JSON.parse(jsonString)
+      setMintedItems([
+        {
+          token_id: event[0].toNumber(),
+          image_url: meta.image,
+          asset_contract: { address: contractAddress },
+          name: meta.name,
+          owner: {
+            address: meta.owner
+          },
+          traits: meta.attributes
+        },
+        ...mintedItems
+      ])
+    }
+  )
+
   const onMint = async () => {
-    const item = await contract.mintItem()
-    console.log('🚀 ~ file: ProjectDetails.tsx ~ line 24 ~ onMint ~ item', item)
+    setMinting(true)
+    await contract.mintItem()
   }
 
   return (
@@ -49,15 +83,18 @@ const ProjectDetails = () => {
             rel="noreferrer"
             href={`https://etherscan.io/address/${contractAddress}`}
           >
-            {shortenAddress(contractAddress, 12)}
+            {contractAddress}
           </a>
         </div>
         {connected && !networkData.chain?.unsupported && (
           <button
             onClick={() => onMint()}
-            className="hover:bg-gray-700 flex items-center justify-center w-full px-4 py-3 overflow-hidden border-2 border-transparent border-gray-700 rounded-lg focus:outline-none"
+            disabled={minting}
+            className={`${
+              !minting && 'hover:bg-gray-700'
+            } flex items-center justify-center w-full px-4 py-3 overflow-hidden border-2 border-transparent border-gray-700 rounded-lg focus:outline-none`}
           >
-            Mint
+            {minting ? 'Minting...' : 'Mint'}
           </button>
         )}
       </div>

@@ -20,6 +20,7 @@ contract GOG is ERC721Enumerable, Ownable {
     mapping(uint256 => bytes3) public eyeColor;
     mapping(uint256 => bytes3) public color;
     uint256 public mintDeadline = block.timestamp + 48 hours;
+    event GorillaMinted(uint256 id, string metadata);
 
     function mintItem() public returns (uint256) {
         require(block.timestamp < mintDeadline, 'DONE MINTING');
@@ -47,6 +48,7 @@ contract GOG is ERC721Enumerable, Ownable {
             bytes2(predictableRandom[6]) |
             (bytes2(predictableRandom[7]) >> 8) |
             (bytes3(predictableRandom[7]) >> 16);
+        emit GorillaMinted(id, tokenURI(id));
         return id;
     }
 
@@ -55,7 +57,11 @@ contract GOG is ERC721Enumerable, Ownable {
         string memory name = string(
             abi.encodePacked('Gorilla #', id.toString())
         );
-        string memory description = string(abi.encodePacked('Gorilla Gang ($GOG) is a generative art collectables, randomly generated with different traits like color, eye and backgrouds. Each Gorilla is a unique, non-fungible token (NFT) on the Ethereum blockchain.'));
+        string memory description = string(
+            abi.encodePacked(
+                'Gorilla Gang ($GOG) is a generative art collectables, randomly generated with different traits like color, eye and backgrouds. Each Gorilla is a unique, non-fungible token (NFT) on the Ethereum blockchain.'
+            )
+        );
         string memory image = Base64.encode(bytes(generateSVGofTokenById(id)));
 
         return

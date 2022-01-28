@@ -9,9 +9,7 @@ export type NftMetaData = {
 export type Asset = {
   token_id: string
   image_url: string
-  permalink: string
   asset_contract: { address: string }
-  background_color?: string
   name?: string
   collection?: {
     image_url: string

@@ -13,7 +13,7 @@ const Header = () => {
   })
 
   return (
-    <header className="sticky top-0 font-mono left-0 right-0 z-10 flex items-center justify-between px-5 py-4 bg-opacity-50 backdrop-filter backdrop-blur">
+    <header className="sticky top-0 font-mono left-0 right-0 z-10 flex items-center justify-between px-5 py-4 bg-opacity-70 backdrop-filter backdrop-blur bg-gray-900">
       <WalletModal
         show={showWalletModal}
         onClose={() => setShowWalletModal(false)}

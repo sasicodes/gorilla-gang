@@ -18,7 +18,7 @@ export default function Home({ assets }: { assets: Asset[] }) {
 
 export const getStaticProps: GetStaticProps = async () => {
   const response = await fetch(
-    'https://testnets-api.opensea.io/api/v1/assets?offset=0&limit=20&asset_contract_address=0xbFb5dC4bDb800363211024A8dC3cE3fe46334168'
+    `https://testnets-api.opensea.io/api/v1/assets?offset=0&limit=20&asset_contract_address=${process.env.NEXT_PUBLIC_CONTRACT_ADDRESS}`
   )
   const data = await response.json()
   return {
