@@ -1,5 +1,6 @@
 import useStore from '@utils/store'
 import React, { useState } from 'react'
+import toast from 'react-hot-toast'
 import {
   useConnect,
   useContract,
@@ -35,28 +36,39 @@ const ProjectDetails = () => {
     },
     'GorillaMinted',
     (event) => {
-      const jsonString = atob(event[1].substring(29))
-      setMinting(false)
-      const meta = JSON.parse(jsonString)
-      setMintedItems([
-        {
-          token_id: event[0].toNumber(),
-          image_url: meta.image,
-          asset_contract: { address: contractAddress },
-          name: meta.name,
-          owner: {
-            address: meta.owner
-          },
-          traits: meta.attributes
-        },
-        ...mintedItems
-      ])
+      addMintedItem(event)
     }
   )
 
+  const addMintedItem = (event: any) => {
+    const jsonString = atob(event[1].substring(29))
+    setMinting(false)
+    const meta = JSON.parse(jsonString)
+    setMintedItems([
+      {
+        token_id: event[0].toNumber(),
+        image_url: meta.image,
+        asset_contract: { address: contractAddress },
+        name: meta.name,
+        owner: {
+          address: meta.owner
+        },
+        traits: meta.attributes
+      },
+      ...mintedItems
+    ])
+  }
+
   const onMint = async () => {
     setMinting(true)
-    await contract.mintItem()
+    try {
+      const txn = await contract.mintItem()
+      await txn.wait()
+    } catch (error: any) {
+      toast.error(error.message)
+    } finally {
+      setMinting(false)
+    }
   }
 
   return (
