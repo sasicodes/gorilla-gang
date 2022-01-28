@@ -23,7 +23,7 @@ const Card = ({ item }: { item: Asset }) => {
               className="text-xs hover:text-blue-400"
               target="_blank"
               rel="noreferrer"
-              href={`https://etherscan.io/address/${item.owner.address}`}
+              href={`https://rinkeby.etherscan.io/address/${item.owner.address}`}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -42,7 +42,7 @@ const Card = ({ item }: { item: Asset }) => {
               title="View on Opensea"
               className="text-xs hover:text-blue-400"
               target="_blank"
-              href={`https://opensea.io/assets/${contractAddress}/${item.token_id}`}
+              href={`https://testnets.opensea.io/assets/${contractAddress}/${item.token_id}`}
               rel="noreferrer"
             >
               <svg
