@@ -81,7 +81,7 @@ const ProjectDetails = () => {
             className="font-mono hover:text-blue-400 text-md truncate block"
             target="_blank"
             rel="noreferrer"
-            href={`https://etherscan.io/address/${contractAddress}`}
+            href={`https://rinkeby.etherscan.io/address/${contractAddress}`}
           >
             {contractAddress}
           </a>
