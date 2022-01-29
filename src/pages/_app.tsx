@@ -30,7 +30,7 @@ const connectors = ({ chainId }: ConnectorsConfig) => {
     }),
     new WalletLinkConnector({
       options: {
-        appName: 'ethdeploy.xyz',
+        appName: 'Gorilla Gang',
         jsonRpcUrl: `${rpcUrl}/${infuraId}`,
         darkMode: true
       }
